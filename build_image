@@ -1,0 +1,6 @@
+#!/bin/bash
+
+IMAGE_NAME="mruby"
+
+{ time docker build --no-cache --progress=plain -t "${IMAGE_NAME}" . ; } 2>&1 \
+| tee "./logs/${IMAGE_NAME}-build-$(date +'%s').log"
