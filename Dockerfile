@@ -29,7 +29,6 @@ RUN <<EOT bash -xev
   rake
 EOT
 
-
 RUN <<EOT bash -xev
   shopt -s extglob
   mkdir -p "${MRBIMG_INSTALL_DIR}"/{bin,lib,mrbc/{bin,lib}}
