@@ -111,11 +111,54 @@ mruby-strip:  ELF 64-bit LSB pie executable, ARM aarch64, version 1 (SYSV), dyna
 
 --------------------------------------------------------------------------------
 
-View the last log
+View the last build log
 
 ```bash
 view $(ls -td1 logs/* | head -n1)
 ```
+
+TODO:
+
+* Build mruby with mruby-dir-glob gem
+* Use mruby in Dockerfile heredoc
+
+
+
+
+
+--------------------------------------------------------------------------------
+
+Build mruby with mruby-dir-glob gem
+
+From old `build_config.rb`:
+
+```text
+Recommended way to customize the build configuration is:
+ * copy `default.rb` (or any config file) to a new file (e.g. `myconfig.rb`)
+ * edit `myconfig.rb`.
+ * `rake MRUBY_CONFIG=/path/to/myconfig.rb` to compile and test.
+ * or `rake MRUBY_CONFIG=myconfig` if your configuration file is in the `build_config` directory.
+ * (optional) submit your configuration as a pull-request if it's useful for others
+```
+
+```ruby
+MRuby::Build.new do |conf|
+  # load specific toolchain settings
+  conf.toolchain
+
+  # include the GEM box
+  conf.gembox 'default'
+
+  conf.gem :mgem => 'mruby-dir-glob'
+
+  # Turn on `enable_debug` for better debugging
+  # conf.enable_debug
+
+  conf.enable_bintest
+  conf.enable_test
+end
+```
+
 
 
 --------------------------------------------------------------------------------

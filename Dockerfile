@@ -25,8 +25,13 @@ WORKDIR $MRBIMG_WORK_DIR
 
 RUN <<EOT bash -xev
   git clone https://github.com/mruby/mruby.git
+EOT
+
+COPY build_config/mruby_docker.rb "${MRBIMG_WORK_DIR}/mruby/build_config/"
+
+RUN <<EOT bash -xev
   cd mruby
-  rake
+  rake MRUBY_CONFIG=mruby_docker
 EOT
 
 RUN <<EOT bash -xev
@@ -38,6 +43,7 @@ RUN <<EOT bash -xev
   cp "${MRBIMG_BUILD_DIR}"/mrbc/bin/* "${MRBIMG_INSTALL_DIR}/mrbc/bin"
   cp "${MRBIMG_BUILD_DIR}"/mrbc/lib/*.a "${MRBIMG_INSTALL_DIR}/mrbc/lib"
   cp "${MRBIMG_BUILD_DIR}"/presym "${MRBIMG_INSTALL_DIR}"
+  echo "export PATH=\$PATH:${MRBIMG_BUILD_DIR}/bin" >> ~/.bashrc
 EOT
 
 WORKDIR /root
