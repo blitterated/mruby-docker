@@ -5,7 +5,7 @@ MRuby::Build.new do |conf|
   # include the GEM box
   conf.gembox 'default'
 
-  conf.gem :mgem => 'mruby-regexp-pcre'
+  conf.gem :mgem => 'mruby-regexp-pcre' # mruby-dir-glob requires an implementation of RegExp
   conf.gem :mgem => 'mruby-dir-glob'
 
   # Turn on `enable_debug` for better debugging
